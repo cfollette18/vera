@@ -1,0 +1,27 @@
+# Drop-in snippet for ~/.hermes/profiles/<profile>/config.yaml.
+# Run `hermes config edit` to merge under your profile config.
+
+# ── Hermes shell-hook scripts ─────────────────────────────────────────
+# Scripts live in ~/.hermes/agent-hooks/. Each fires on the named event,
+# receives JSON on stdin, returns JSON on stdout.
+hooks:
+  pre_tool_call:
+    - matcher: "terminal"
+      command: "~/.hermes/agent-hooks/block-rm-rf.sh"
+      timeout: 5
+  post_tool_call:
+    - matcher: "terminal"
+      command: "~/.hermes/agent-hooks/audit-terminal.sh"
+      timeout: 10
+  pre_llm_call:
+    - command: "~/.hermes/agent-hooks/prepend-today.sh"
+      timeout: 5
+
+# ── MCP server scaffolds (optional) ───────────────────────────────────
+# Add with `hermes mcp add NAME --command …`. Example local filesystem demo:
+# mcp_servers:
+#   filesystem-demo:
+#     command: python3
+#     args:
+#       - "~/.hermes/mcp/servers/filesystem/stdio.py"
+#     timeout: 30

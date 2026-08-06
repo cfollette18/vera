@@ -317,7 +317,7 @@ in §7.
 
 A plan written from this skill:
 
-- Lives in `/home/cfollette18/.hermes/plans/<project-name>.md` (or
+- Lives in `~/.hermes/plans/<project-name>.md` (or
   the project's own `runs/PLAN.md` if the user prefers)
 - Uses the 10-section structure above (§0 through §11, with §10
   reserved for the changelog)
@@ -377,7 +377,7 @@ A plan written from this skill:
 
 ## Worked example
 
-The plan at `/home/cfollette18/.hermes/plans/financial-research-analyst.md`
+The plan at `~/.hermes/plans/financial-research-analyst.md`
 is the canonical example. It has:
 
 - 10 sections (0, 1, 2, 3, 4, 5, 6, 7, 8, 9) plus 11 (how-to) and
@@ -407,8 +407,8 @@ Load these during the relevant phase, not up front:
 - `serving-llms-vllm` / `llama-cpp` — for the serving layer
 - `huggingface-hub` — for HF uploads
 - `evaluating-llms-harness` — for standard benchmark sanity checks
-- `jig-recipes` / `orzo-pipeline` — for project-specific recipes
-  if the project is jig or orzo
+- `training-studio-recipes` / `edge-qlora-pipeline` — for project-specific recipes
+  if using a training studio or edge pipeline
 
 Do not load all of these at the start. The plan is a guide, not a
 manifest. Load skills when the phase demands them.

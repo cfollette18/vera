@@ -183,7 +183,7 @@ Building the dataset before the baseline is the order that makes
 
 ## Reference example
 
-`/home/cfollette18/.hermes/plans/financial-research-analyst.md` is
+`~/.hermes/plans/financial-research-analyst.md` is
 a worked example of this architecture applied to a financial
 research analyst. The §1.5 "Sector-agnosticism" section is the
 canonical treatment of the four-layer design.

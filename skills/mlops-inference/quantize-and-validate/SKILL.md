@@ -318,5 +318,5 @@ The Orin has quirks that don't show up on x86:
 
 ## Reference: real examples
 
-- `~/orzo/` will need this when the trained model goes to the Orin. The recipe is this skill.
-- jig's eval router when it serves the trained model locally: same recipe.
+- `$PROJECT_ROOT/` will need this when the trained model goes to the Orin. The recipe is this skill.
+- the training studio's eval router when it serves the trained model locally: same recipe.

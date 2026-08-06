@@ -6,7 +6,7 @@ description: Finish multi-task SFT data gen. Fanout, dedupe, split.
 # complex-dataset-gen — multi-task parallel SFT dataset generation playbook
 
 Use this when generating a synthetic SFT dataset across multiple task
-types (e.g. orzo's 7 task types: tool_schema, react_trace, rules,
+types (e.g. the project's 7 task types: tool_schema, react_trace, rules,
 hooks, guardrails, skills, harness_scaffold) and need to finish a
 long-running generation job efficiently. Covers parallel fanout, token
 budget tuning, race-condition handling, dedupe, validation, and the
@@ -64,7 +64,7 @@ For a long generation job, the highest-throughput pattern is to slice
 the spec pool into N non-overlapping chunks (one per worker process)
 and run `--workers K` per process for N×K effective threads.
 
-For orzo, the existing pattern is `_specs_slice_{1..4}.jsonl` × 4
+For example, the existing pattern is `_specs_slice_{1..4}.jsonl` × 4
 processes × `--workers 4` = 16 effective threads, each with their own
 `done` set loaded at startup, all appending to the same output JSONL.
 
@@ -73,9 +73,9 @@ the OS doesn't corrupt line writes (each `json.dumps(...) + "\n"` is
 typically <4 KB), but the dedupe at step 6 must run.
 
 ```
-cd /home/cfollette18/orzo && source ~/.orzo.env
+cd $PROJECT_ROOT && source $PROJECT_ENV_FILE
 for i in 1 2 3 4; do
-  nohup env ORZO_TRACKIO=1 PATH="$PWD/.venv/bin:$PATH" \
+  nohup env PROJECT_TRACKIO=1 PATH="$PWD/.venv/bin:$PATH" \
     .venv/bin/python data/gen_dataset.py \
       --task harness_scaffold \
       --specs data/generated/_specs_slice_${i}.jsonl \
@@ -130,13 +130,13 @@ land in train + valid + test simultaneously.
 ### 7. Push + verify
 
 ```
-rsync -av data/ heater:~/orzo/data/
-ssh heater "wc -l ~/orzo/data/generated/{train,valid,test}.jsonl"
+rsync -av data/ $EDGE_HOST:$PROJECT_ROOT/data/
+ssh $EDGE_HOST "wc -l $PROJECT_ROOT/data/generated/{train,valid,test}.jsonl"
 ```
 
 Pre-train sanity: each task type should be roughly represented in
 train.jsonl in proportion to its target share (e.g. harness_scaffold
-should be ~35% of train rows for the orzo target distribution).
+should be ~35% of train rows for the target target distribution).
 
 ## Pitfalls
 
@@ -159,7 +159,7 @@ should be ~35% of train rows for the orzo target distribution).
   low AND completion is short, the prompt is the problem — not the
   budget.
 
-## Worked example: finishing orzo's harness_scaffold (1562 → 2400)
+## Worked example: finishing the project's harness_scaffold (1562 → 2400)
 
 State:
 - 1562/2400 rows (5 dupes from prior concurrent runs)
@@ -172,16 +172,16 @@ Steps taken:
 2. Kill all 16 workers (kept none — easier than deciding which is freshest)
 3. Backup: `cp harness_scaffold.jsonl harness_scaffold.jsonl.pre-cleanup.bak`
 4. Launch 4 fresh slice workers, `--max-tokens 49184` (was 32768), `--workers 4`
-5. Trackio initialized for `orzo-dataset-gen-harness_scaffold`
+5. Trackio initialized for `dataset-gen-harness_scaffold`
 6. Wait for workers to reach 2400 (or stop early at user's call)
 7. Dedupe → 2400 (or current count)
 8. Validate → 0 fails expected
 9. Split → train/valid/test by spec_id
-10. rsync to heater
+10. rsync to $EDGE_HOST
 
 ## When to load other skills
 
-- `orzo-pipeline` — for the orzo-specific downstream steps (train, export, eval)
-- `orzo-teacher-providers` — for which teacher endpoint to use and why
+- `edge-qlora-pipeline` — downstream train, export, eval steps
+- `teacher-providers` — for which teacher endpoint to use and why
 - `dataset-design` — meta-skill for designing the validator + spec generator
 - `trackio` — for the live dashboard pattern

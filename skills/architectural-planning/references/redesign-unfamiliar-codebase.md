@@ -28,7 +28,7 @@ This is the order that consistently produces plans that survive contact with rea
 3. **Tree dump with extensions filter.** One `terminal find` with `\( -name "*.py" -o -name "*.tsx" ... \)` and `-not -path "*/node_modules/*"`. This tells you the actual shape (FastAPI? Django? Express?) before you read a single source file.
 4. **Entry points.** Backend `main.py`, frontend `App.tsx` + router + sidebar, every `scripts/*.py`. These are the highest-information-per-line files in the project.
 5. **The data model.** Pydantic models / SQLAlchemy / DB schema / Pydantic-Settings. Where state lives, what types flow through.
-6. **The "interesting" scripts.** In jig's case: `dataset.py` (the validation philosophy), `qlora.py` (the optimization choices), `eval.py` (what counts as success), `export_gguf.sh` (how the artifact is born).
+6. **The "interesting" scripts.** In the training studio's case: `dataset.py` (the validation philosophy), `qlora.py` (the optimization choices), `eval.py` (what counts as success), `export_gguf.sh` (how the artifact is born).
 7. **The UI surface.** One representative route per category (data table, form, monitor). Don't read all routes — pick a `Dataset.tsx`-style one and an `Eval.tsx`-style one to learn the conventions.
 
 **Stop reading once you can answer these four questions:**
@@ -62,7 +62,7 @@ For architectural / redesign plans, use this outline (not the bite-sized TDD str
 
 ## Output conventions
 
-  - Save under `.hermes/plans/<YYYY-MM-DD_HHMMSS>-<slug>.md`. Use a descriptive slug, not the project name — `jig-reproducible-app.md` not `jig.md`. Slugs let multiple plans coexist in the same dir.
+  - Save under `.hermes/plans/<YYYY-MM-DD_HHMMSS>-<slug>.md`. Use a descriptive slug, not the project name — `reproducible-training-studio.md` not `jig.md`. Slugs let multiple plans coexist in the same dir.
   - In the chat reply, lead with the path to the saved plan, then a short "what's in it" summary (5–10 bullets max), then the questions / next-action options. The user came for the plan, not the chat.
   - Don't quote large sections of the plan in chat. They have it on disk.
 

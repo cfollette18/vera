@@ -72,7 +72,7 @@ data-generation workflow.
   may keep duplicates of high-quality examples and drop unique
   low-quality ones. Quality-score first.
 - **Contamination on common boilerplate.** Test specs often share
-  boilerplate ("You are orzo, a generator of..."). Strip the system
+  boilerplate ("You are a generator of a generator of..."). Strip the system
   prompt + user prompt headers before MinHash; otherwise the
   contamination rate is artificially inflated.
 - **Generation race with retries.** If a single spec hits the retry
@@ -91,14 +91,14 @@ data-generation workflow.
 
 ## Reference: real examples in this profile
 
-- **orzo** (`/home/cfollette18/orzo`) — 7 task types, spec generator
+- **Example agent-harness project** (`$PROJECT_ROOT`) — multi task types, spec generator
   in `data/gen_specs.py`, validators in `data/gen_dataset.py`,
   splits in `scripts/split_dataset.py`. The README
-  (`orzo/data/README.md`) is a worked example of the validator +
+  (`$PROJECT_ROOT/data/README.md`) is a worked example of the validator +
   per-task share design.
-- **jig** — generic version of the same pipeline + dedup +
+- **Training studio** — generic version of the same pipeline + dedup +
   contamination check + JSON-schema enforcement at the teacher.
-  See `/home/cfollette18/.hermes/plans/jig-researcher-reframing.md`
+  See `~/.hermes/plans/training-studio-researcher-reframing.md`
   for the failure-mode taxonomy overlay.
 
 ## When to load other skills
@@ -106,5 +106,5 @@ data-generation workflow.
 - For the actual training step: `axolotl`, `unsloth`, or
   `fine-tuning-with-trl` depending on the recipe.
 - For publishing the dataset: `huggingface-hub`.
-- For project-specific tooling (jig's wizard, orzo's dashboard):
+- For project-specific tooling (the training studio's wizard, the project's dashboard):
   load the project-specific skill instead.

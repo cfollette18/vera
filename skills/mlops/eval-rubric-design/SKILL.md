@@ -140,14 +140,14 @@ If any of these is missing, surface it to the user before proceeding.
 
 ## Reference: real examples in this profile
 
-- **jig's eval router** (`/home/cfollette18/jig/backend/jig_server/
+- **the training studio's eval router** (`$TRAINING_STUDIO_ROOT/backend/server/
   routers/eval.py`) — functional eval against a served Ollama
   model; uses deterministic scorers in `scripts/eval.py`.
-- **orzo's eval** (`/home/cfollette18/orzo/eval/run_eval.py`) —
+- **the project's eval** (`$PROJECT_ROOT/eval/run_eval.py`) —
   compiles the generated harness, runs it against mock tools,
   scores on dispatch correctness.
 - The researcher-flavored wizard refactoring plan
-  (`/home/cfollette18/.hermes/plans/jig-researcher-reframing.md`)
+  (`~/.hermes/plans/training-studio-researcher-reframing.md`)
   captures the gaps a researcher would add to the current eval step.
 
 ## When to load other skills

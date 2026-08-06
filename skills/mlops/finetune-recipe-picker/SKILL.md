@@ -117,4 +117,4 @@ hparams across ≥ 3 seeds.
   `fine-tuning-with-trl` (TRL SFT/DPO/GRPO, programmatic).
 - For DPO/GRPO alignment after SFT: same TRL skill.
 - For project-specific recipes: load the project skill (e.g.
-  `jig-recipes` for jig's 5 dataclasses).
+  `training-studio-recipes` for the training studio's 5 dataclasses).

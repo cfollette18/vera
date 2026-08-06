@@ -26,7 +26,7 @@ _step                 # global step
 ```
 
 TRL/Transformers logs these every `logging_steps` (default 5 in
-jig). The curve you see in the dashboard is `loss` (or `train_loss`)
+training studio). The curve you see in the dashboard is `loss` (or `train_loss`)
 plotted against `_step` (or `epoch`).
 
 ## What a "good" SFT loss curve looks like
@@ -172,7 +172,7 @@ confidence band. Outliers are signal, not noise.
 
 ## Reading tegrastats alongside loss
 
-On edge hardware (`heater`), pair the loss plot with tegrastats:
+On edge hardware (`$EDGE_HOST`), pair the loss plot with tegrastats:
 
 ```
 tegrastats columns: RAM, CPU, GPU, POM_5V, thermal
@@ -254,7 +254,7 @@ Is eval_loss > 1.1× its minimum so far?
 - For writing up the training section of RESULTS.md: load
   `eval-rubric-design` for the framing; this skill for the loss-curve
   narrative.
-- For project-specific training tooling (jig's training router):
+- For project-specific training tooling (the training studio's training router):
   load the project skill.
 - For ablations: a separate skill may be warranted if it doesn't
   exist yet; for now, see `eval-rubric-design` §"Failure-mode
@@ -262,10 +262,10 @@ Is eval_loss > 1.1× its minimum so far?
 
 ## Reference: real examples
 
-- The current orzo run (`/home/cfollette18/orzo/`) — once training
-  starts on `heater`, `trainer_state.json` will be at
-  `~/orzo/checkpoints/orzo-qwen25-coder-1.5b/`. Read it with this
+- The current training run (`$PROJECT_ROOT/`) — once training
+  starts on `$EDGE_HOST`, `trainer_state.json` will be at
+  `$PROJECT_ROOT/checkpoints/qwen-finetune25-coder-1.5b/`. Read it with this
   skill in mind.
-- `tegrastats_log.sh` output for the orzo run — `runs/orzo-*.log`
-  on `heater`. The `training-loss-reading` checklist above is the
+- `tegrastats_log.sh` output for the training run — `runs/training-*.log`
+  on `$EDGE_HOST`. The `training-loss-reading` checklist above is the
   way to interpret that log alongside `trainer_state.json`.

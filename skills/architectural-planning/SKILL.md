@@ -90,7 +90,7 @@ The highest-leverage move on resume is almost always the **gate metric**, not th
 
 ## References
 
-  - `references/redesign-unfamiliar-codebase.md` — concrete worked example (jig → reproducible edge-LLM training studio), with the actual structure and section sizes that worked for a multi-repo redesign.
+  - `references/redesign-unfamiliar-codebase.md` — concrete worked example (training studio → reproducible edge-LLM training studio), with the actual structure and section sizes that worked for a multi-repo redesign.
   - `references/exploration-checklist.md` — the four gating questions + the read-order shortcut, plus what to do when you can't answer one.
   - `references/open-decisions-template.md` — phrasing conventions for the always-last open-decisions section so users can answer in one line each.
 

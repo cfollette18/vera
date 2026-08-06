@@ -516,7 +516,7 @@ For dashboards, avoid “data slop.” Only show data that helps the user decide
 
 ## Motion
 
-Use motion as discipline, not theater.
+Use motion as discipline, not t$EDGE_HOST.
 
 Good motion:
 

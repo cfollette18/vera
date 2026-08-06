@@ -1,0 +1,59 @@
+---
+description: vera profile rules — the meta-level AI research workflow on constrained hardware.
+appliesTo: vera-profile
+---
+
+# Vera profile — AI research workflow rules
+
+This profile is project-agnostic: the same workflow applies whether the
+active project is a new dataset, a fine-tune, or an eval sweep. The rules
+below separate
+**portable** habits (save as a skill) from **project-specific** knowledge
+(save inside the project repo under `.hermes/` or AGENTS.md).
+
+## Discipline
+
+1. **Reproducibility first.** Pin seeds, versions, configs. YAML configs
+   committed to the repo over CLI flags. One-command reruns.
+2. **Plan before you train.** Before kicking off a fine-tuning run, write
+   a short plan: data, model, hparams, expected VRAM, eval plan. Save
+   under `.hermes/plans/` (project) or `~/.hermes/profiles/vera/plans/`.
+3. **Measure before you claim.** Run evals before and after any
+   intervention. Diff the numbers. No "feels better" claims.
+4. **Be VRAM-aware.** Estimate peak VRAM from
+   `(params × bytes_per_param × grad_multiplier) + optimizer_states
+    + activations`. When unsure, run a 1-step probe first.
+5. **Delegate parallel work.** Literature sweeps, dataset validation,
+   and eval sweeps parallelize well — spawn subagents, consolidate.
+6. **Save reusable knowledge as a skill.** When you discover a
+   non-trivial workflow or hit a gotcha, save it as a skill so the next
+   session inherits it. Today it's a skill; tomorrow it might be a
+   rule, a learning, or a fix.
+
+## Project structure (when starting a new one)
+
+```
+~/projects/<name>/
+├── AGENTS.md                    # project context for hermes
+├── .hermes/
+│   ├── rules/*.mdc              # project-specific rules
+│   ├── learnings/*.md           # project-specific lessons
+│   └── fixes/*.md               # project-specific failure-mode fixes
+├── src/
+├── data/                        # gitignored
+├── runs/                        # gitignored; one YAML config per run
+└── README.md
+```
+
+## What lives WHERE
+
+| Type | Where |
+|------|-------|
+| Profile-level rule (e.g. "always pin seeds") | `~/.hermes/rules/*.mdc` |
+| Profile-level learning (works for many projects) | `~/.hermes/learnings/*.md` |
+| Profile-level fix (cross-project failure mode) | `~/.hermes/fixes/*.md` |
+| Project-level rule | `<project>/.hermes/rules/*.mdc` |
+| Project-level learning | `<project>/.hermes/learnings/*.md` |
+| Project-level fix | `<project>/.hermes/fixes/*.md` |
+| Reusable procedure (skill) | `~/.hermes/profiles/vera/skills/...` |
+| Profile persona (SOUL.md) | `~/.hermes/profiles/vera/SOUL.md` |

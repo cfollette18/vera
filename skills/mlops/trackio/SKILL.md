@@ -17,10 +17,10 @@ Use this skill when the user asks for:
 - "log metrics to a local SQLite DB and view them in a browser"
 - "compare two QLoRA runs side by side"
 
-## Install (already done in orzo venv)
+## Install (already done in project venv)
 
 ```
-source /home/cfollette18/orzo/.venv/bin/activate
+source $PROJECT_ROOT/.venv/bin/activate
 uv pip install trackio   # 0.34.0 at writing
 ```
 
@@ -30,7 +30,7 @@ uv pip install trackio   # 0.34.0 at writing
 import trackio
 
 trackio.init(
-    project="orzo-qlora",
+    project="dataset-gen-qlora",
     config={"base": "Qwen2.5-Coder-1.5B", "lr": 2e-4, "bs": 4, "rank": 16},
 )
 for step, batch in enumerate(dataloader):
@@ -54,7 +54,7 @@ from transformers import TrainingArguments, Trainer
 from trackio.integration.huggingface import TrackioCallback  # confirms import path
 
 args = TrainingArguments(
-    output_dir="runs/orzo-qwen25-coder-1.5b",
+    output_dir="runs/qwen-finetune25-coder-1.5b",
     report_to="trackio",   # HF auto-detects
     ...
 )
@@ -68,12 +68,12 @@ on `on_log`.
 
 ## Dataset-gen logging
 
-For orzo's `gen_dataset.py`, log per-spec results into a `orzo-dataset-gen`
+For the project's `gen_dataset.py`, log per-spec results into a `dataset-gen`
 project so you can watch validator pass rate live:
 
 ```python
 import trackio
-trackio.init(project="orzo-dataset-gen",
+trackio.init(project="dataset-gen-dataset-gen",
              config={"task": "harness_scaffold", "teacher": "MiniMax-M3"})
 # per spec:
 trackio.log({
@@ -95,7 +95,7 @@ trackio show --project <name> --host 0.0.0.0    # LAN-accessible for Jetson
 Programmatic:
 ```python
 import trackio
-trackio.show(project="orzo-qlora", host="0.0.0.0")  # blocks; call from a worker
+trackio.show(project="dataset-gen-qlora", host="0.0.0.0")  # blocks; call from a worker
 ```
 
 CLI subcommands worth knowing:
@@ -109,16 +109,16 @@ CLI subcommands worth knowing:
 
 ## Multi-project baseline comparison
 
-To compare base-model vs orzo-model loss curves on the same plot: log both
+To compare base-model vs fine-tuned loss curves on the same plot: log both
 runs to the same project (different `run_name`):
 
 ```python
-trackio.init(project="orzo-experiments", name="base-qwen25-coder-1.5b", config={...})
+trackio.init(project="dataset-gen-experiments", name="base-qwen25-coder-1.5b", config={...})
 # ... train base ...
 trackio.finish()
 
-trackio.init(project="orzo-experiments", name="orzo-v1-qwen25-coder-1.5b", config={...})
-# ... train orzo ...
+trackio.init(project="dataset-gen-experiments", name="finetune-v1-qwen25-coder-1.5b", config={...})
+# ... train fine-tuned model ...
 ```
 
 Note: trackio.init does NOT take `name=`. Instead, pass it via config or
@@ -132,10 +132,10 @@ use a fresh call without init sharing — see "Pitfalls" below.
   `trackio.init --help` or `inspect.signature(trackio.init)`.
 - **Project names are canonically normalized**: trackio's
   `canonical_project_name()` strips everything not `[A-Za-z0-9_-]`, so
-  `orzo-dataset-gen/rules` becomes `orzo-dataset-genrules` and **collides**
-  with a project literally named `orzo-dataset-genrules`. Use `-` as a
+  `dataset-gen/rules` becomes `dataset-genrules` and **collides**
+  with a project literally named `dataset-genrules`. Use `-` as a
   namespace separator if you want sub-projects (e.g.
-  `orzo-dataset-gen-rules`, `orzo-dataset-gen-guardrails`).
+  `dataset-gen-rules`, `dataset-gen-guardrails`).
 - **No `--port` flag on `trackio show`** — Gradios picks 7860 by default.
   To move it: edit the Gradio launch or run behind a reverse proxy.
 - **Buffers metrics in DB only**. There is NO real-time websocket push to
@@ -156,20 +156,20 @@ use a fresh call without init sharing — see "Pitfalls" below.
   scalar metrics; tensorboard eats event files for graph/embedding
   visualization. For Orin Nano class hardware, trackio wins on simplicity.
 
-## Where it lives (orzo-specific)
+## Where it lives (project-specific)
 
-- venv: `/home/cfollette18/orzo/.venv` (uv-installed, version 0.34.0).
-- DB dir: `/home/cfollette18/.cache/huggingface/trackio/`.
-- Launcher: `/home/cfollette18/orzo/scripts/trackio_dashboard.sh` —
+- venv: `$PROJECT_ROOT/.venv` (uv-installed, version 0.34.0).
+- DB dir: `~/.cache/huggingface/trackio/`.
+- Launcher: `$PROJECT_ROOT/scripts/trackio_dashboard.sh` —
   sources PATH, picks an unused port, nohups the dashboard, returns the URL.
 
-## Recommended orzo wiring
+## Recommended project wiring
 
 1. In `train/train_qlora.py` (or wherever the HF `Trainer` lives on
-   heater): set `report_to="trackio"` and `project=` (or wrap with a
+   $EDGE_HOST): set `report_to="trackio"` and `project=` (or wrap with a
    manual `TrackioCallback`).
 2. In `data/gen_dataset.py`: add a per-task trackio logger writing to
-   project `orzo-dataset-gen-<task>` so each task gets its own dashboard.
-3. On heater, expose port 7860 over Tailscale so the dev laptop can view.
+   project `dataset-gen-<task>` so each task gets its own dashboard.
+3. On $EDGE_HOST, expose port 7860 over Tailscale so the dev laptop can view.
 4. The dev-laptop dashboard (port 8000) becomes a thin index that links
    to the per-task Trackio dashboards + the live JSONL counters.

@@ -16,7 +16,7 @@ Frontend development practices for this workspace: Next.js 16+ App Router, React
 ## Key Conventions
 
 ### Path & Workspace
-- App path: `/home/cfollette18/System-Design ` (note trailing space — always quote in commands)
+- App path: `$FRONTEND_PROJECT_ROOT`
 - Workspace packages: `@sd/frontend`, `@sd/database`
 - Lucide React icons at root `node_modules/lucide-react`
 - shadcn/ui components at `frontend/src/components/ui/`
@@ -61,7 +61,7 @@ User expects professional, Linear/Shopify/Stripe-inspired design:
 ### Turbopack Cache Corruption
 When build fails with cryptic errors (especially after file modifications):
 ```bash
-cd "/home/cfollette18/System-Design " && rm -rf .next && npm run dev
+cd "$FRONTEND_PROJECT_ROOT" && rm -rf .next && npm run dev
 ```
 Do NOT just restart — clean the `.next` directory.
 
@@ -79,7 +79,7 @@ Do NOT just restart — clean the `.next` directory.
 
 ## Development Commands
 ```bash
-cd "/home/cfollette18/System-Design " && npm run dev  # Start dev servers
+cd "$FRONTEND_PROJECT_ROOT" && npm run dev  # Start dev servers
 ```
 
 ## Verification

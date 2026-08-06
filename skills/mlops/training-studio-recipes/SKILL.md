@@ -1,9 +1,9 @@
 ---
-name: jig-recipes
-description: jig's 5 training recipes + fit_check and pilot mechanics.
+name: training-studio-recipes
+description: the training studio's 5 training recipes + fit_check and pilot mechanics.
 ---
 
-# jig-recipes — optimization strategies (plan §6, §14 P1.14-17)
+# Training studio recipes — optimization strategies (plan §6, §14 P1.14-17)
 
 Recipes are preset dataclasses in `scripts/recipes.py`. They're
 chosen at wizard step 10 (Recipe). The CLI flag is `--recipe NAME`
@@ -91,6 +91,5 @@ before burning the full data budget.
 
 ## Reference
 
-Full detail in `/home/cfollette18/.hermes/plans/jig-reproducible-
-app.md` §6 (optimization strategies), §4.7 (multi-seed), §4.8
-(pilot), §4.10 (reproducibility), §14 Group E (P1.14-17 tasks).
+Full detail in `~/.hermes/plans/reproducible-training-studio.md` (optimization
+strategies, multi-seed, pilot, reproducibility sections).

@@ -1,12 +1,12 @@
 ---
-name: jig-trainer
-description: Hermes skill for the in-jig autonomous trainer agent.
+name: training-studio-trainer
+description: Hermes skill for the in-app autonomous trainer agent.
 ---
 
-# jig-trainer — autonomous agent skill (plan §7)
+# Training studio trainer — autonomous agent skill (plan §7)
 
 This is the skill the in-app Hermes agent loads when running inside
-jig. The agent lives at `backend/jig_server/services/agent.py` (NOT
+the training studio. The agent lives at `backend/server/services/agent.py` (NOT
 YET BUILT — Phase 4 in the plan). It watches SQLite + SSE and takes
 corrective actions on long-running stages.
 
