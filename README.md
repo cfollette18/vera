@@ -19,7 +19,7 @@ An open-source agent profile built on the [Hermes](https://github.com/cfollette1
 
 ### Skill categories
 
-`apple` · `architectural-planning` · `autonomous-ai-agents` · `creative` · `data-science` · `diagramming` · `domain` · `email` · `gaming` · `gifs` · `github` · `inference-sh` · `reproducible-training-studio` · `mcp` · `media` · `mlops` · `mlops-inference` · `note-taking` · `planning` · `product` · `productivity` · `red-teaming` · `research` · `security` · `smart-home` · `social-media` · `software-development`
+`architectural-planning` · `autonomous-ai-agents` · `creative` · `data-science` · `diagramming` · `github` · `mcp` · `mlops` · `mlops-inference` · `note-taking` · `planning` · `product` · `red-teaming` · `reproducible-training-studio` · `research` · `security` · `software-development`
 
 Research cores: `research/`, `mlops/`, `mlops-inference/`.
 

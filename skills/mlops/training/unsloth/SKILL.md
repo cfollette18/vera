@@ -32,19 +32,19 @@ This skill should be triggered when:
 
 ## Reference Files
 
-This skill includes comprehensive documentation in `references/`:
+Slim local index in `references/llms.md`. For full, up-to-date documentation use the official site:
 
-- **llms-txt.md** - Llms-Txt documentation
+- **https://docs.unsloth.ai**
 
-Use `view` to read specific reference files when detailed information is needed.
+Use `view` to read `references/llms.md` when a local index is enough; follow links to the official docs for depth.
 
 ## Working with This Skill
 
 ### For Beginners
-Start with the getting_started or tutorials reference files for foundational concepts.
+Start with [Unsloth getting started](https://docs.unsloth.ai) on the official site.
 
 ### For Specific Features
-Use the appropriate category reference file (api, guides, etc.) for detailed information.
+Use the appropriate section on https://docs.unsloth.ai for detailed information.
 
 ### For Code Examples
 The quick reference section above contains common patterns extracted from the official docs.
@@ -52,11 +52,7 @@ The quick reference section above contains common patterns extracted from the of
 ## Resources
 
 ### references/
-Organized documentation extracted from official sources. These files contain:
-- Detailed explanations
-- Code examples with language annotations
-- Links to original documentation
-- Table of contents for quick navigation
+- **llms.md** — compact local index (large vendor dumps are not vendored in-repo)
 
 ### scripts/
 Add helper scripts here for common automation tasks.
@@ -66,18 +62,12 @@ Add templates, boilerplate, or example projects here.
 
 ## Notes
 
-- This skill was automatically generated from official documentation
-- Reference files preserve the structure and examples from source docs
-- Code examples include language detection for better syntax highlighting
+- Prefer https://docs.unsloth.ai over stale vendored copies
+- Reference files preserve structure where kept locally
 - Quick reference patterns are extracted from common usage examples in the docs
 
 ## Updating
 
-To refresh this skill with updated documentation:
-1. Re-run the scraper with the same configuration
-2. The skill will be rebuilt with the latest information
+To refresh local reference material, re-scrape or update `references/llms.md` from https://docs.unsloth.ai — do not re-add full `llms-full` dumps to the repo.
 
 <!-- Trigger re-upload 1763621536 -->
-
-
-
