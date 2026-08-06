@@ -1,0 +1,77 @@
+# --- Secrets / credentials (NEVER commit) ---
+auth.json
+auth.lock
+.env
+.env.*
+config.yaml
+*.netrc
+*.pem
+*.key
+id_ed25519
+id_rsa
+**/credentials*
+**/secrets*
+
+# --- Runtime state / databases ---
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+state.db*
+response_store.db*
+verification_evidence.db
+kanban.db*
+state/
+state-snapshots/
+checkpoints/
+sessions/
+pending_messages/
+pairing/
+sandboxes/
+gateway.lock
+gateway.pid
+gateway-starts.log
+gateway_state.json
+channel_directory.json
+processes.json
+*.heartbeat
+*.lifecycle.json
+
+# --- Caches / generated data ---
+cache/
+audio_cache/
+image_cache/
+images/
+logs/
+models_dev_cache.json
+ollama_cloud_models_cache.json
+provider_models_cache.json
+.skills_prompt_snapshot.json
+.update_check
+*.tar.gz
+
+# --- Personal memory / history ---
+memories/
+.hermes_history
+*.history
+plans/
+pastes/
+cron/
+
+# --- Compiled runtime binary ---
+bin/
+lsp/
+node_modules/
+platforms/
+plugins/
+scripts/
+skins/
+workspace/
+home/
+
+# --- Editor / OS ---
+.DS_Store
+*.swp
+.vscode/
+.idea/

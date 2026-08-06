@@ -1,0 +1,4 @@
+description: 'AI research and finetuning: paper discovery, dataset design, QLoRA/full
+  fine-tuning, evaluation, model surgery, and local serving. Optimized for constrained-hardware
+  (Jetson-class) workflows.'
+description_auto: false
